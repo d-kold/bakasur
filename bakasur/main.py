@@ -1,48 +1,54 @@
 import typer
 
 from bakasur.constants import console
-from bakasur.helpers import Login
+from bakasur.helpers import Login, store_orders
+from bakasur.utils import token_file_exists, db_file_exists
+from bakasur.database import BakasurDB
 
 app = typer.Typer()
 
 
 @app.callback(invoke_without_command=True)
-def callback():
+def run():
+    console.rule("[bold red] Welcome to Bakasur!")
+    console.print(
+        'Bakasur is your friendly demon :ogre: that helps you track your Thuisbezorgd orders and visualise them.',
+        style="bold white", justify="left", crop=True)
+    console.rule("[bold red] ***")
+
+    if not token_file_exists():
+        user = typer.prompt("Please enter your email id", type=str)
+        password = typer.prompt("Please enter your password", type=str, hide_input=True)
+
+        loginObj = Login(username=user, password=password)
+        result = loginObj.attempt_login()
+        if result == 'LOGIN PENDING':
+            # console.log(result)
+            vcode = typer.prompt("Please enter the verification code", type=str)
+            loginObj.attempt_login(vcode=vcode)
+        else:
+            console.print(":warning: [red]Login attempt failed. Please check your credentials.")
+            return
+
+    if db_file_exists():
+        db = BakasurDB()
+        db.init_db()
+        store_orders(db, store_recent=True)
+        return None
+
+    db = BakasurDB()
+    db.init_db()
+    db.create_db()
+    store_orders(db, store_recent=False)
+
+
+@app.command()
+def reset():
     """
-    Bakasur
+    This command deletes the DB, token files to start a new session
     """
+    pass
 
 
-@app.command()
-def login():
-    user = typer.prompt("Please enter your email id", type=str)
-    password = typer.prompt("Please enter your password", type=str, hide_input=True)
-
-    loginObj = Login(username=user, password=password)
-    result = loginObj.attempt_login()
-    if result == 'LOGIN PENDING':
-        console.log(result)
-        vcode = typer.prompt("Please enter the verification code", type=str)
-        result = loginObj.attempt_login(vcode=vcode)
-
-    console.log(result)
-
-
-@app.command()
-def fetch(
-        save: bool = typer.Option(False, help="Save your orders to a sqlite db on your local filesystem")
-):
-    console.print("Fetching all your orders orders")
-
-
-@app.command()
-def info():
-    with console.capture() as capture:
-        console.rule("[bold red] Welcome to bezorg-analytics!")
-        console.print('''
-                  This tool helps you analyse your orders from Thuisbezorgd by fetching your order history.
-                  Additionally, you can store your data in a database to visualise your orders and generate interesting insights.
-                  ''', style="bold white", justify="center", crop=False)
-        console.rule("[bold red] ***")
-
-    print(capture.get())
+if __name__ == "__main__":
+    app()

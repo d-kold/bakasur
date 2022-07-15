@@ -2,8 +2,10 @@ import os
 from rich.console import Console
 
 THUISBEZORGD_URL = "https://cw-api.takeaway.com"
+THUISBEZORGD_USER_URL = THUISBEZORGD_URL + "/api/v31/user"
 THUISBEZORGD_LOGIN_URL = THUISBEZORGD_URL + "/api/v31/user/login" #POST 
 THUISBEZORGD_ORDER_URL = THUISBEZORGD_URL + "/api/v31/user/orders" #GET
+THUISBEZORGD_ORDER_DETAILS_URL = THUISBEZORGD_URL + "/api/v31/order/details"
 THUISBEZORGD_REFRESH_TOKEN = THUISBEZORGD_URL + "/api/v31/user/jwt_refresh" #POST
 
 DB_FILEPATH = os.path.join(str(os.getcwd()), 'thuisbezorgd.db')
@@ -11,7 +13,7 @@ DB_FILEPATH = os.path.join(str(os.getcwd()), 'thuisbezorgd.db')
 # Credentials file
 THUISBEZORGD_TOKEN_FILE = os.path.join(str(os.getcwd()), 'thuisbezorgd_token.json')
 
-console = Console(style="bold white")
+console = Console()
 
 HEADERS = {
             'authority': 'cw-api.takeaway.com',
