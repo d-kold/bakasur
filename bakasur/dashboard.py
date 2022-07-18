@@ -7,6 +7,7 @@ from bakasur.constants import REPORT_PATH
 
 pd.options.mode.chained_assignment = None
 
+
 def display(order_data, order_details_data):
     order_data['order_datetime'] = pd.to_datetime(order_data.order_datetime)
     order_data['weekday'] = order_data.order_datetime.dt.day_name()

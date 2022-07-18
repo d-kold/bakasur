@@ -13,7 +13,7 @@ app = typer.Typer()
 def run():
     console.rule("[bold red] Welcome to Bakasur!")
     console.print(
-        'Bakasur is your friendly demon :ogre: that helps you track your Thuisbezorgd orders and visualise them.',
+        'Bakasur is your friendly demon :ogre: who helps you track your Thuisbezorgd order history and visualise it.',
         style="bold white", justify="left", crop=True)
     console.rule("[bold red] ***")
 
