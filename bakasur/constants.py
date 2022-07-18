@@ -13,6 +13,8 @@ DB_FILEPATH = os.path.join(str(os.getcwd()), 'thuisbezorgd.db')
 # Credentials file
 THUISBEZORGD_TOKEN_FILE = os.path.join(str(os.getcwd()), 'thuisbezorgd_token.json')
 
+REPORT_PATH = os.path.join(str(os.getcwd()), 'report.html')
+
 console = Console()
 
 HEADERS = {

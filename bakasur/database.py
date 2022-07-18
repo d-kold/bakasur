@@ -1,4 +1,5 @@
 import sqlite3
+import pandas as pd
 
 from bakasur.constants import DB_FILEPATH
 from bakasur.exceptions import ThuisbezorgdCliDBError
@@ -84,3 +85,19 @@ class BakasurDB:
         except Exception as e:
             raise ThuisbezorgdCliDBError("Error while executing query: {}".format(e))
         return response
+
+    def export_to_df(self):
+        # cur = self.conn.cursor()
+        try:
+            orders = self.conn.execute("SELECT * FROM orders")
+            order_details = self.conn.execute("SELECT * FROM items")
+
+            orders_cols = [column[0] for column in orders.description]
+            order_detail_cols = [column[0] for column in order_details.description]
+
+            orders_df = pd.DataFrame.from_records(data=orders.fetchall(), columns=orders_cols)
+            order_details_df = pd.DataFrame.from_records(data=order_details.fetchall(), columns=order_detail_cols)
+        except Exception as e:
+            raise ThuisbezorgdCliDBError("Error while executing query: {}".format(e))
+
+        return orders_df, order_details_df

@@ -1,14 +1,14 @@
 [tool.poetry]
 name = "bakasur"
 version = "1.0.0"
-description = ""
+description = "Bakasur is your friendly demon that helps you analyse your Thuisbezorgd order history and visualise patterns."
 authors = ["Devendra Kulkarni <kulkarnidevendra21@gmail.com>"]
 
 [tool.poetry.scripts]
 bakasur = "bakasur.main:app"
 
 [tool.poetry.dependencies]
-python = "^3.10"
+python = ">=3.6.0, < 3.11.0"
 typer = {extras = ["all"], version = "^0.4.2"}
 requests = "^2.28.1"
 rich = "^12.4.4"

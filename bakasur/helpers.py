@@ -149,6 +149,7 @@ def process_and_store_orders(db, orders_data, store_recent=False):
                   order.order_datetime > datetime.strptime(db_datetime, "%Y-%m-%d %H:%M:%S")]
         if len(orders) == 0:
             print("There are no recent orders in your history since the last time")
+            return
         else:
             db.insert_orders(orders)
             print("Storing your recent orders")

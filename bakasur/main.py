@@ -4,6 +4,7 @@ from bakasur.constants import console
 from bakasur.helpers import Login, store_orders
 from bakasur.utils import token_file_exists, db_file_exists
 from bakasur.database import BakasurDB
+from bakasur.dashboard import display
 
 app = typer.Typer()
 
@@ -34,12 +35,14 @@ def run():
         db = BakasurDB()
         db.init_db()
         store_orders(db, store_recent=True)
-        return None
+    else:
+        db = BakasurDB()
+        db.init_db()
+        db.create_db()
+        store_orders(db, store_recent=False)
 
-    db = BakasurDB()
-    db.init_db()
-    db.create_db()
-    store_orders(db, store_recent=False)
+    orders_df, order_details_df = db.export_to_df()
+    display(orders_df, order_details_df)
 
 
 @app.command()
