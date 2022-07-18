@@ -6,6 +6,8 @@ import requests
 from collections import namedtuple
 from datetime import datetime
 
+from rich.progress import track
+
 from bakasur.exceptions import ThuisbezorgdApiError, ThuisbezorgdAuthError
 from bakasur.utils import get_headers, get_tokens, update_token_file
 from bakasur.database import get_latest_datetime_from_orders, BakasurDB
@@ -73,7 +75,7 @@ def is_authenticated(func):
         max_retries = 0
         while max_retries < 3:
             try:
-                print("Authenticating...")
+                # print("Authenticating...")
                 headers = get_headers()
                 r = requests.get(THUISBEZORGD_USER_URL, headers=headers)
                 if r.status_code == 200:
@@ -158,7 +160,7 @@ def process_and_store_orders(db, orders_data, store_recent=False):
 
     order_ids = [ord.order_id for ord in orders]
     item_dict = {}
-    for idx, ord_id in enumerate(order_ids):
+    for idx, ord_id in track(enumerate(order_ids), description="Fetching order details..."):
         data = fetch_order_details(ord_id)
         item_dict[idx] = data
         time.sleep(2)

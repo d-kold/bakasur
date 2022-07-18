@@ -47,6 +47,6 @@ def update_token_file(data):
     """
     Write the newly received tokens to the token for future use
     """
-    print("Writing file")
+    # print("Writing file")
     with open(THUISBEZORGD_TOKEN_FILE, 'w') as outfile:
         json.dump(data, outfile)
