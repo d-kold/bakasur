@@ -1,7 +1,7 @@
 # Bakasur
-[![PyPi version](https://pypip.in/v/$REPO/badge.png)](https://pypi.org/project/bakasur/)
+[![PyPI version](https://badge.fury.io/py/bakasur.svg)](https://badge.fury.io/py/bakasur)
 ***
-Bakasur is your friendly demon who helps you analyse your Thuisbezorgd order history and visualise it. 
+[Bakasur](https://github.com/d-kold/bakasur) (_/buh-KAA-soor/_) is your friendly demon who helps you analyse your Thuisbezorgd order history and visualise it. 
 
 ![Dashboard](img/dashboard.png)
 
@@ -29,9 +29,9 @@ site-packages, it is preferable to create a virtual environment and then install
 
 ### Tool specifics
 ***
-When you first log in to Thuisbezorgd using `bakasur` it creates a sqlite database in your current working directory. 
+When you first log in to Thuisbezorgd using `bakasur` it creates a sqlite database in your current working directory `thuisbezrgd.db`. 
 The database stores all your orders and their details in tables `orders` and `items` respectively. During subsequent runs
-of the tool, only the recent orders are stored. 
+of the tool, your most recent orders are inserted into the database 
 
 Requires:
 - Python v3.7.1+ 
@@ -50,3 +50,5 @@ Feature requests, Bug fixes are most welcome.
 ***
 This tool is intended for personal use. A fun hobby project for demo. I am not responsible if you tweak the code and violate 
 any Thuisbezorgd Terms and Conditions. 
+
+[d-kold](https://github.com/d-kold)
