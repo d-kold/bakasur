@@ -1,5 +1,8 @@
 import os
 from rich.console import Console
+from fake_useragent import UserAgent
+
+ua = UserAgent()
 
 THUISBEZORGD_URL = "https://cw-api.takeaway.com"
 THUISBEZORGD_USER_URL = THUISBEZORGD_URL + "/api/v31/user"
@@ -24,7 +27,7 @@ HEADERS = {
             'content-type': 'application/json;charset=UTF-8',
             'origin': 'https://www.thuisbezorgd.nl',
             'referer': 'https://www.thuisbezorgd.nl/',
-            'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36',
+            'user-agent': ua.random,
             'x-country-code': 'nl',
             'x-language-code': 'en',
             'x-requested-with': 'XMLHttpRequest',
