@@ -34,7 +34,7 @@ The database stores all your orders and their details in tables `orders` and `it
 of the tool, your most recent orders are inserted into the database 
 
 Requires:
-- Python v3.7.1+ 
+- Python v3.8.0+ 
 - Thuisbezorgd account (duh!)
 
 ### Contribution
